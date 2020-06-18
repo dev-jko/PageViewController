@@ -17,10 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let pageVC = PageViewController(transitionStyle: .scroll,
-                                        navigationOrientation: .horizontal,
-                                        options: nil)
-        window?.rootViewController = pageVC
+        let vc = ViewController()
+        window?.rootViewController = vc
         window?.makeKeyAndVisible()
         
         return true

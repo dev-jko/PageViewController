@@ -1,5 +1,5 @@
 //
-//  PageViewController.swift
+//  ViewController.swift
 //  PageViewController
 //
 //  Created by Jaedoo Ko on 2020/06/17.
@@ -8,13 +8,18 @@
 
 import UIKit
 
-class PageViewController: UIPageViewController {
+class ViewController: UIViewController {
     
     private let backgroundColors: [UIColor] = [.green, .blue, .brown, .yellow, .lightGray]
 
+    private let pageViewController = UIPageViewController(transitionStyle: .pageCurl,
+                                                          navigationOrientation: .horizontal,
+                                                          options: nil)
+    
     private let pageControl: UIPageControl = {
         let pc = UIPageControl()
-        pc.backgroundColor = .orange
+        pc.pageIndicatorTintColor = .magenta
+        pc.currentPageIndicatorTintColor = .black
         pc.translatesAutoresizingMaskIntoConstraints = false
         return pc
     }()
@@ -27,11 +32,15 @@ class PageViewController: UIPageViewController {
     }
     
     private func setPageViewController() {
-        dataSource = self
-        delegate = self
+        pageViewController.dataSource = self
+        pageViewController.delegate = self
         
         let firstVC = instantiateViewController(index: 0, color: backgroundColors[0])
-        setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+        pageViewController.setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
+        
+        addChild(pageViewController)
+        view.addSubview(pageViewController.view)
+        didMove(toParent: self)
     }
     
     private func setPageControl() {
@@ -53,7 +62,7 @@ class PageViewController: UIPageViewController {
     }
 }
 
-extension PageViewController: UIPageViewControllerDataSource {
+extension ViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController
@@ -80,7 +89,7 @@ extension PageViewController: UIPageViewControllerDataSource {
     }
 }
 
-extension PageViewController: UIPageViewControllerDelegate {
+extension ViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             didFinishAnimating finished: Bool,
