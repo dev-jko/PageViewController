@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         //  페이지 뷰컨을 부모 뷰컨에 띄워줍니다
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
-        didMove(toParent: self)
+        pageViewController.didMove(toParent: self)
     }
     
     private func setPageControl() {
